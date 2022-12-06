@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
+import { Offline, Online } from "react-detect-offline";
 
 const Navigation = () => {
   let { isAuthticated, setIsAuthticated } = useContext(AuthContext);
@@ -14,11 +15,15 @@ const Navigation = () => {
         {isAuthticated && <Link to="/myschedule">My Schedule</Link>}
       </li>
       <li>
-        {!isAuthticated && <Link to="login">Log in</Link>}
+        {!isAuthticated && <Link to="/login">Log in</Link>}
         {isAuthticated && (
-          <Link onClick={() => setIsAuthticated(false)} to="/">
-            Log Out
-          </Link>
+          <>
+            <Link onClick={() => setIsAuthticated(false)} to="/">
+              Log Out
+            </Link>
+            <Offline>Offline</Offline>
+            <Online>Online</Online>
+          </>
         )}
       </li>
     </ul>
